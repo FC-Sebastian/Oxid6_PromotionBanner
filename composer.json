@@ -1,0 +1,25 @@
+{
+  "name": "seb/banner",
+  "description": "description",
+  "type": "oxideshop-module",
+  "license": "proprietary",
+  "version": "1.0",
+  "authors": [
+    {
+      "name": "FC-Sebastian"
+    }
+  ],
+  "extra": {
+    "oxideshop": {
+      "target-directory": "seb/banner"
+    }
+  },
+  "require": {
+    "php" : ">=7.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "seb\\banner\\": "../../../source/modules/seb/banner"
+    }
+  }
+}
