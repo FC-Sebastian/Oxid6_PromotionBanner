@@ -9,24 +9,17 @@
 <form name="transfer" id="transfer" action="[{$oViewConf->getSelfLink()}]" method="post">
     [{$oViewConf->getHiddenSid()}]
     <input type="hidden" name="oxid" value="[{$oxid}]">
-    <input type="hidden" name="cl" value="article_banner">
+    <input type="hidden" name="cl" value="category_pictures">
     <input type="hidden" name="editlanguage" value="[{$editlanguage}]">
 </form>
 
 <form name="myedit" id="myedit" enctype="multipart/form-data" action="[{$oViewConf->getSelfLink()}]" method="post">
     <input type="hidden" name="MAX_FILE_SIZE" value="[{$iMaxUploadFileSize}]">
     [{$oViewConf->getHiddenSid()}]
-    <input type="hidden" name="cl" value="article_banner">
+    <input type="hidden" name="cl" value="category_banner">
     <input type="hidden" name="fnc" value="">
     <input type="hidden" name="oxid" value="[{$oxid}]">
-    <input type="hidden" name="editval[article__oxid]" value="[{$oxid}]">
-    <input type="hidden" name="voxid" value="[{$oxid}]">
-    <input type="hidden" name="oxparentid" value="[{$oxparentid}]">
-    <input type="hidden" name="masterPicIndex" value="">
-
-    [{if $oViewConf->isAltImageServerConfigured()}]
-        <div class="warning">[{oxmultilang ident="ALTERNATIVE_IMAGE_SERVER_NOTE"}] [{oxinputhelp ident="HELP_ALTERNATIVE_IMAGE_SERVER_NOTE"}]</div>
-    [{/if}]
+    <input type="hidden" name="editval[oxcategories__oxid]" value="[{$oxid}]">
 
     <table cellspacing="0" cellpadding="0" width="100%" border="0" class="listTable">
         <tr>
@@ -54,13 +47,13 @@
             </td>
 
             <td class="edittext">
-                <input class="editinput" name="myfile[BAN@oxsebbanner__oxbannerpic[{$iIndex}]]" type="file">
+                <input class="editinput" name="myfile[CBAN@oxsebbanner__oxbannerpic[{$iIndex}]]" type="file">
             </td>
 
             <td nowrap="nowrap">
                 [{if $blPicUplodaded && !$readonly}]
-                    [{assign var="sPicUrl" value=$editBanner->getPictureUrl('product/banner')}]
-                    <a href="[{$sPicUrl}]" class="zoomText" target="_blank"><span class="ico"></span><span class="float: left;>">[{oxmultilang ident="ARTICLE_PICTURES_PREVIEW"}]</span></a>
+                [{assign var="sPicUrl" value=$editBanner->getPictureUrl('product/banner')}]
+                <a href="[{$sPicUrl}]" class="zoomText" target="_blank"><span class="ico"></span><span class="float: left;>">[{oxmultilang ident="ARTICLE_PICTURES_PREVIEW"}]</span></a>
                 [{/if}]
             </td>
         </tr>
