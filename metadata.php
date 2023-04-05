@@ -13,10 +13,15 @@ $aModule = [
     'version'     => '1.0',
     'author'      => 'FC-Sebastian',
     'controllers' => [
-        'article_banner'     => \seb\banner\Controller\Admin\ArticleBannerController::class,
+        'seb_base'            => \seb\banner\Controller\Admin\SebBaseController::class,
+        'article_banner'      => \seb\banner\Controller\Admin\ArticleBannerController::class,
+        'category_banner'     => \seb\banner\Controller\Admin\CategoryBannerController::class,
+        'manufacturer_banner' => \seb\banner\Controller\Admin\ManufacturerBannerController::class
     ],
     'templates'   => [
         'article_banner.tpl'      => 'seb/banner/views/admin/tpl/article_banner.tpl',
+        'category_banner.tpl'     => 'seb/banner/views/admin/tpl/category_banner.tpl',
+        'manufacturer_banner.tpl' => 'seb/banner/views/admin/tpl/manufacturer_banner.tpl'
     ],
     'blocks'      => [
         [
@@ -29,8 +34,10 @@ $aModule = [
         'onActivate' => 'seb\banner\Core\Events\Setup::onActivate',
     ],
     'extend'      => [
-        \OxidEsales\Eshop\Application\Model\Article::class      => \seb\banner\Model\Article::class,
         \OxidEsales\Eshop\Core\UtilsFile::class                 => \seb\banner\Core\UtilsFile::class,
-        \OxidEsales\Eshop\Application\Model\Manufacturer::class => \seb\banner\Model\Manufacturer::class
+        \OxidEsales\Eshop\Application\Model\Article::class      => \seb\banner\Model\Article::class,
+        \OxidEsales\Eshop\Application\Model\Category::class     => \seb\banner\Model\Category::class,
+        \OxidEsales\Eshop\Application\Model\Manufacturer::class => \seb\banner\Model\Manufacturer::class,
+
     ]
 ];

@@ -2,11 +2,10 @@
 
 namespace seb\banner\Controller\Admin;
 
-use OxidEsales\Eshop\Application\Controller\Admin\AdminDetailsController;
+use seb\banner\Controller\Admin\SebBaseController;
 use OxidEsales\Eshop\Core\Registry;
-use seb\banner\Model\Banner;
 
-class ArticleBannerController extends AdminDetailsController
+class ArticleBannerController extends SebBaseController
 {
     protected $_sThisTemplate = "article_banner.tpl";
 
@@ -62,6 +61,7 @@ class ArticleBannerController extends AdminDetailsController
 
         $sBannerId = $oBanner->getId();
         $oArticle->setSebBannerId($sBannerId);
+        $oArticle->setLanguage($this->_iEditLang);
         $oArticle->save();
     }
 
@@ -76,14 +76,5 @@ class ArticleBannerController extends AdminDetailsController
         $oProduct->load($sProductId);
 
         return $this->_oArticle = $oProduct;
-    }
-
-    public function getBanner($oArticle)
-    {
-        $oBanner = oxNew(Banner::class);
-        if ($oArticle->getSebBannerId() !== null && $oArticle->getSebBannerId() !== ""){
-            $oBanner->load($oArticle->getSebBannerId());
-        }
-        return $oBanner;
     }
 }

@@ -9,23 +9,23 @@
 <form name="transfer" id="transfer" action="[{$oViewConf->getSelfLink()}]" method="post">
     [{$oViewConf->getHiddenSid()}]
     <input type="hidden" name="oxid" value="[{$oxid}]">
-    <input type="hidden" name="cl" value="article_banner">
-    <input type="hidden" name="editlanguage" value="[{$editlanguage}]">
+    <input type="hidden" name="oxidCopy" value="[{$oxid}]">
+    <input type="hidden" name="cl" value="manufacturer_banner">
+    <input type="hidden" name="language" value="[{$actlang}]">
 </form>
 
 <form name="myedit" id="myedit" enctype="multipart/form-data" action="[{$oViewConf->getSelfLink()}]" method="post">
     <input type="hidden" name="MAX_FILE_SIZE" value="[{$iMaxUploadFileSize}]">
     [{$oViewConf->getHiddenSid()}]
-    <input type="hidden" name="cl" value="article_banner">
+    <input type="hidden" name="cl" value="manufacturer_banner">
     <input type="hidden" name="fnc" value="">
     <input type="hidden" name="oxid" value="[{$oxid}]">
-    <input type="hidden" name="editval[article__oxid]" value="[{$oxid}]">
     <input type="hidden" name="voxid" value="[{$oxid}]">
     <input type="hidden" name="oxparentid" value="[{$oxparentid}]">
-    <input type="hidden" name="masterPicIndex" value="">
+    <input type="hidden" name="editval[oxmanufacturers__oxid]" value="[{$oxid}]">
 
     [{if $oViewConf->isAltImageServerConfigured()}]
-        <div class="warning">[{oxmultilang ident="ALTERNATIVE_IMAGE_SERVER_NOTE"}] [{oxinputhelp ident="HELP_ALTERNATIVE_IMAGE_SERVER_NOTE"}]</div>
+    <div class="warning">[{oxmultilang ident="ALTERNATIVE_IMAGE_SERVER_NOTE"}] [{oxinputhelp ident="HELP_ALTERNATIVE_IMAGE_SERVER_NOTE"}]</div>
     [{/if}]
 
     <table cellspacing="0" cellpadding="0" width="100%" border="0" class="listTable">
@@ -46,21 +46,21 @@
                 [{assign var="blPicUplodaded" value=true}]
 
                 [{if $sPicFile == "nopic.jpg" || $sPicFile == ""}]
-                    [{assign var="blPicUplodaded" value=false}]
-                    <span class="notActive">-------</span>
+                [{assign var="blPicUplodaded" value=false}]
+                <span class="notActive">-------</span>
                 [{else}]
-                    <b>[{$sPicFile}]</b>
+                <b>[{$sPicFile}]</b>
                 [{/if}]
             </td>
 
             <td class="edittext">
-                <input class="editinput" name="myfile[BAN@oxsebbanner__oxbannerpic[{$iIndex}]]" type="file">
+                <input class="editinput" name="myfile[MBAN@oxsebbanner__oxbannerpic[{$iIndex}]]" type="file">
             </td>
 
             <td nowrap="nowrap">
                 [{if $blPicUplodaded && !$readonly}]
-                    [{assign var="sPicUrl" value=$editBanner->getPictureUrl('product/banner')}]
-                    <a href="[{$sPicUrl}]" class="zoomText" target="_blank"><span class="ico"></span><span class="float: left;>">[{oxmultilang ident="ARTICLE_PICTURES_PREVIEW"}]</span></a>
+                [{assign var="sPicUrl" value=$editBanner->getPictureUrl('product/banner')}]
+                <a href="[{$sPicUrl}]" class="zoomText" target="_blank"><span class="ico"></span><span class="float: left;>">[{oxmultilang ident="ARTICLE_PICTURES_PREVIEW"}]</span></a>
                 [{/if}]
             </td>
         </tr>

@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OX>
     <OXMENU id="NAVIGATION_ESHOPADMIN">
+        <MAINMENU id="mxmainmenu">
+            <SUBMENU id="mxmanufacturer" cl="manufacturer" list="manufacturer_list">
+                <TAB id="SEB_BANNER" cl="manufacturer_banner"/>
+            </SUBMENU>
+        </MAINMENU>
         <MAINMENU id="mxmanageprod">
             <SUBMENU id="mxarticles" cl="article" list="article_list">
-                <TAB id="SEB_BANNER" cl="article_banner" />
+                <TAB id="SEB_BANNER" cl="article_banner"/>
+            </SUBMENU>
+            <SUBMENU id="mxcategories" cl="category" list="category_list">
+                <TAB id="SEB_BANNER" cl="category_banner"/>
             </SUBMENU>
         </MAINMENU>
     </OXMENU>
