@@ -29,7 +29,8 @@ $aModule = [
         'onActivate' => 'seb\banner\Core\Events\Setup::onActivate',
     ],
     'extend'      => [
-        \OxidEsales\Eshop\Application\Model\Article::class => \seb\banner\Model\Article::class,
-        \OxidEsales\Eshop\Core\UtilsFile::class            => \seb\banner\Core\UtilsFile::class
+        \OxidEsales\Eshop\Application\Model\Article::class      => \seb\banner\Model\Article::class,
+        \OxidEsales\Eshop\Core\UtilsFile::class                 => \seb\banner\Core\UtilsFile::class,
+        \OxidEsales\Eshop\Application\Model\Manufacturer::class => \seb\banner\Model\Manufacturer::class
     ]
 ];
