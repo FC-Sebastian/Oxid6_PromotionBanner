@@ -5,7 +5,7 @@
 [{elseif $sClass === "details"}]
     [{assign var="oProduct" value=$oView->getProduct()}]
     [{if $oProduct->getPromotionActive() === true}]
-        <p>placeholder</p>
+        <img src="[{$oProduct->getSebBannerUrl()}]" class="categoryPicture img-responsive img-thumbnail">
     [{/if}]
 [{/if}]
 

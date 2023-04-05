@@ -146,4 +146,12 @@ class Banner extends \OxidEsales\Eshop\Core\Model\MultiLanguageModel implements 
         }
         return Registry::getConfig()->getUrl($sFile,$sDir);
     }
+
+    public function getActive()
+    {
+        $sFrom = $this->getFrom();
+        $sTo = $this->getTo();
+
+        return strtotime($sFrom) <= time() && time() <= strtotime($sTo);
+    }
 }
