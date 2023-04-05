@@ -19,7 +19,7 @@
   },
   "autoload": {
     "psr-4": {
-      "seb\\banner\\": "../../../source/modules/seb/banner"
+      "seb\\banner\\": "../../../../source/modules/seb/banner"
     }
   }
 }
