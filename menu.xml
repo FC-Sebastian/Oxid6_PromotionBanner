@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OX>
     <OXMENU id="NAVIGATION_ESHOPADMIN">
-        <MAINMENU id="SEB_BANNER">
-            <SUBMENU id="SEB_BANNER_SUB" cl="sebbannercontroller" list="sebbannerlistcontroller">
-                <TAB id="SEB_BANNER_DETAILS" cl="sebbannerdetailscontroller" />
+        <MAINMENU id="mxmanageprod">
+            <SUBMENU id="mxarticles" cl="article" list="article_list">
+                <TAB id="SEB_BANNER" cl="article_banner" />
             </SUBMENU>
         </MAINMENU>
     </OXMENU>

@@ -7,6 +7,7 @@
 
 namespace seb\banner\Model;
 
+use OxidEsales\Eshop\Core\Registry;
 use oxRegistry;
 use oxField;
 
@@ -21,118 +22,15 @@ class Banner extends \OxidEsales\Eshop\Core\Model\MultiLanguageModel implements 
     /**
      * @var string Name of current class
      */
-    protected $_sClassName = 'oxseb_banner';
-
-    /**
-     * Marker to load banner article count info
-     *
-     * @var bool
-     */
-    protected $_blShowArticleCnt = false;
-
-    /**
-     * Banner article count (default is -1, which means not calculated)
-     *
-     * @var int
-     */
-    protected $_iNrOfArticles = -1;
-
-    /**
-     * Marks that current object is managed by SEO
-     *
-     * @var bool
-     */
-    protected $_blIsSeoObject = true;
-
-    /**
-     * Visibility of a banner
-     *
-     * @var int
-     */
-    protected $_blIsVisible;
-
-    /**
-     * has visible endors state of a category
-     *
-     * @var int
-     */
-    protected $_blHasVisibleSubCats;
-
-    /**
-     * Seo article urls for languages
-     *
-     * @var array
-     */
-    protected $_aSeoUrls = [];
+    protected $_sClassName = 'oxsebbanner';
 
     /**
      * Class constructor, initiates parent constructor (parent::oxI18n()).
      */
     public function __construct()
     {
-        $this->setShowArticleCnt($this->getConfig()->getConfigParam('bl_perfShowActionCatArticleCnt'));
         parent::__construct();
-        $this->init('oxseb_banner');
-    }
-
-    /**
-     * Marker to load banner article count info setter
-     *
-     * @param bool $blShowArticleCount Marker to load banner article count
-     */
-    public function setShowArticleCnt($blShowArticleCount = false)
-    {
-        $this->_blShowArticleCnt = $blShowArticleCount;
-    }
-
-    /**
-     * Assigns to $this object some base parameters/values.
-     *
-     * @param array $dbRecord parameters/values
-     */
-    public function assign($dbRecord)
-    {
-        parent::assign($dbRecord);
-
-        // banner article count is stored in cache
-        if ($this->_blShowArticleCnt && !$this->isAdmin()) {
-            $this->_iNrOfArticles = \OxidEsales\Eshop\Core\Registry::getUtilsCount()->getBannerArticleCount($this->getId());
-        }
-
-        $this->oxseb_banner__oxnrofarticles = new \OxidEsales\Eshop\Core\Field($this->_iNrOfArticles, \OxidEsales\Eshop\Core\Field::T_RAW);
-    }
-
-    /**
-     * Loads object data from DB (object data ID is passed to method). Returns
-     * true on success.
-     *
-     * @param string $sOxid object id
-     *
-     * @return bool
-     */
-    public function load($sOxid)
-    {
-        if ($sOxid == 'root') {
-            return $this->_setRootObjectData();
-        }
-
-        return parent::load($sOxid);
-    }
-
-    /**
-     * Sets root banner data. Returns true
-     *
-     * @return bool
-     * @deprecated underscore prefix violates PSR12, will be renamed to "setRootObjectData" in next major
-     */
-    protected function _setRootObjectData() // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
-    {
-        $this->setId('root');
-        $this->oxseb_banner__oxicon = new \OxidEsales\Eshop\Core\Field('', \OxidEsales\Eshop\Core\Field::T_RAW);
-        $this->oxseb_banner__oxtitle = new \OxidEsales\Eshop\Core\Field(\OxidEsales\Eshop\Core\Registry::getLang()->translateString('BY_VENDOR', $this->getLanguage(), false), \OxidEsales\Eshop\Core\Field::T_RAW);
-        $this->oxseb_banner__oxshortdesc = new \OxidEsales\Eshop\Core\Field('', \OxidEsales\Eshop\Core\Field::T_RAW);
-
-        return true;
+        $this->init('oxsebbanner');
     }
 
     /**
@@ -215,119 +113,13 @@ class Banner extends \OxidEsales\Eshop\Core\Model\MultiLanguageModel implements 
     }
 
     /**
-     * returns number or articles of this banner
-     *
-     * @return integer
-     */
-    public function getNrOfArticles()
-    {
-        if (!$this->_blShowArticleCnt || $this->isAdmin()) {
-            return -1;
-        }
-
-        return $this->_iNrOfArticles;
-    }
-
-    /**
-     * returns the sub category array
-     */
-    public function getSubCats()
-    {
-    }
-
-    /**
-     * returns the visibility of a banner
-     *
-     * @return bool
-     */
-    public function getIsVisible()
-    {
-        return $this->_blIsVisible;
-    }
-
-    /**
-     * sets the visibilty of a category
-     *
-     * @param bool $blVisible banners visibility status setter
-     */
-    public function setIsVisible($blVisible)
-    {
-        $this->_blIsVisible = $blVisible;
-    }
-
-    /**
-     * returns if a banner has visible sub categories
-     *
-     * @return bool
-     */
-    public function getHasVisibleSubCats()
-    {
-        if (!isset($this->_blHasVisibleSubCats)) {
-            $this->_blHasVisibleSubCats = false;
-        }
-
-        return $this->_blHasVisibleSubCats;
-    }
-
-    /**
-     * sets the state of has visible sub banners
-     *
-     * @param bool $blHasVisibleSubcats marker if banner has visible subcategories
-     */
-    public function setHasVisibleSubCats($blHasVisibleSubcats)
-    {
-        $this->_blHasVisibleSubCats = $blHasVisibleSubcats;
-    }
-
-    /**
-     * Empty method, called in templates when banner is used in same code like category
-     */
-    public function getContentCats()
-    {
-    }
-
-    /**
-     * Delete this object from the database, returns true on success.
-     *
-     * @param string $oxid Object ID(default null)
-     *
-     * @return bool
-     */
-    public function delete($oxid = null)
-    {
-        if ($oxid) {
-            $this->load($oxid);
-        } else {
-            $oxid = $this->getId();
-        }
-
-        if (parent::delete($oxid)) {
-            \OxidEsales\Eshop\Core\Registry::get(\seb\banner\Model\SeoEncoderBanner::class)->onDeleteBanner($this);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Returns banner title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->oxseb_banner__oxtitle->value;
-    }
-
-    /**
      * Returns banner title
      *
      * @return string
      */
     public function getTo()
     {
-        return $this->oxseb_banner__oxactiveto->value;
+        return $this->oxsebbanner__oxactiveto->value;
     }
 
     /**
@@ -337,6 +129,21 @@ class Banner extends \OxidEsales\Eshop\Core\Model\MultiLanguageModel implements 
      */
     public function getFrom()
     {
-        return $this->oxseb_banner__oxactivefrom->value;
+        return $this->oxsebbanner__oxactivefrom->value;
+    }
+
+    public function getOxBannerPic()
+    {
+        return $this->oxsebbanner__oxbannerpic->value;
+    }
+
+    public function getPictureUrl($sPath, $sFile = false)
+    {
+        $sBase = "pictures/master/";
+        $sDir = $sBase.$sPath;
+        if ($sFile === false) {
+            $sFile = $this->getOxBannerPic();
+        }
+        return Registry::getConfig()->getUrl($sFile,$sDir);
     }
 }

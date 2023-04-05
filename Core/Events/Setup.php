@@ -19,11 +19,11 @@ class Setup extends Base
     public static function alterDbTables()
     {
         $db = DatabaseProvider::getDb();
-        if ($db->getOne("SHOW COLUMNS FROM oxarticles LIKE 'OXSEB_BANNERID'") === false) {
-            $db->execute("ALTER TABLE oxarticles ADD OXSEB_BANNERID CHAR(32) NULL");
-            $db->execute("ALTER TABLE oxcategories ADD OXSEB_BANNERID CHAR(32) NULL");
-            $db->execute("ALTER TABLE oxmanufacturers ADD OXSEB_BANNERID CHAR(32) NULL");
-            $db->execute("CREATE TABLE oxseb_banner (OXID CHAR(32) COLLATE latin1_general_ci,OXTITLE VARCHAR(255) COLLATE utf8_general_ci, OXACTIVEFROM DATETIME, OXACTIVETO DATETIME, OXBANNERPIC VARCHAR(128) COLLATE utf8_general_ci)");
+        if ($db->getOne("SHOW COLUMNS FROM oxarticles LIKE 'OXSEBBANNERID'") === false) {
+            $db->execute("ALTER TABLE oxarticles ADD OXSEBBANNERID CHAR(32) NULL");
+            $db->execute("ALTER TABLE oxcategories ADD OXSEBBANNERID CHAR(32) NULL");
+            $db->execute("ALTER TABLE oxmanufacturers ADD OXSEBBANNERID CHAR(32) NULL");
+            $db->execute("CREATE TABLE oxsebbanner (OXID CHAR(32) COLLATE latin1_general_ci,OXSHOPID INT(11) DEFAULT 1, OXACTIVEFROM DATETIME, OXACTIVETO DATETIME, OXBANNERPIC VARCHAR(128) COLLATE utf8_general_ci, PRIMARY KEY (OXID))");
         }
     }
 
