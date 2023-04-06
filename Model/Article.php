@@ -4,6 +4,8 @@ namespace seb\banner\Model;
 
 use OxidEsales\Eshop\Application\Model\Manufacturer;
 
+use OxidEsales\Eshop\Core\Registry;
+
 use function OxidEsales\EshopCommunity\Tests\Unit\Application\Controller\getSeoProcType;
 
 class Article extends Article_Parent
@@ -41,5 +43,23 @@ class Article extends Article_Parent
             $oBanner->load($oManu->getSebBannerId());
             return $oBanner->getPictureUrl("manufacturer/banner");
         }
+    }
+
+    public function delete($sOXID = false)
+    {
+        if (!$sOXID) {
+            $sOXID = $this->getId();
+        }
+        $this->load($sOXID);
+        $sBannerId = $this->getSebBannerId();
+
+        if ($sBannerId !== null && $sBannerId !== "") {
+            $oBanner = oxNew(Banner::class);
+            $oBanner->load($sBannerId);
+            $oBanner->deletePicture("product/banner");
+            $oBanner->delete();
+        }
+
+        parent::delete($sOXID);
     }
 }

@@ -28,7 +28,25 @@ class Category extends Category_Parent
         $oBanner = oxNew(Banner::class);
         if ($this->getSebBannerId() !== null && $this->getSebBannerId() !== "") {
             $oBanner->load($this->getSebBannerId());
-            return $oBanner->getPictureUrl("product/banner");
+            return $oBanner->getPictureUrl("category/banner");
         }
+    }
+
+    public function delete($sOXID = false)
+    {
+        if (!$sOXID) {
+            $sOXID = $this->getId();
+        }
+        $this->load($sOXID);
+        $sBannerId = $this->getSebBannerId();
+
+        if ($sBannerId !== null && $sBannerId !== "") {
+            $oBanner = oxNew(Banner::class);
+            $oBanner->load($sBannerId);
+            $oBanner->deletePicture("category/banner");
+            $oBanner->delete();
+        }
+
+        parent::delete($sOXID);
     }
 }

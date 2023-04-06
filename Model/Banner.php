@@ -147,11 +147,27 @@ class Banner extends \OxidEsales\Eshop\Core\Model\MultiLanguageModel implements 
         return Registry::getConfig()->getUrl($sFile,$sDir);
     }
 
+    public function getPictureDir($sPath, $sFile = null)
+    {
+        $sBase = "pictures/master/";
+        $sDir = $sBase.$sPath;
+
+        return Registry::getConfig()->getDir($sFile, $sDir, true);
+    }
+
     public function getActive()
     {
         $sFrom = $this->getFrom();
         $sTo = $this->getTo();
 
         return strtotime($sFrom) <= time() && time() <= strtotime($sTo);
+    }
+
+    public function deletePicture($sPath)
+    {
+        $sDir = $this->getPictureDir($sPath);
+        $oUtilPic = Registry::getUtilsPic();
+
+        $oUtilPic->pictureDelete($this->getOxBannerPic(), $sDir);
     }
 }

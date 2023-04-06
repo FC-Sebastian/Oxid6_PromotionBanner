@@ -27,9 +27,12 @@ class ManufacturerBannerController extends SebBaseController
         $oManufacturer = $this->getManufacturer();
         $oBanner = $this->getBanner($oManufacturer);
         $aParams = Registry::getConfig()->getRequestParameter("editval");
-
         $oBanner->assign($aParams);
-        $oBanner = Registry::getUtilsFile()->processFiles($oBanner);
+
+        if ($this->checkFileUpload() === true) {
+            $oBanner->deletePicture("manufacturer/banner");
+            $oBanner = Registry::getUtilsFile()->processFiles($oBanner);
+        }
         $oBanner->save();
 
         $sBannerId = $oBanner->getId();
