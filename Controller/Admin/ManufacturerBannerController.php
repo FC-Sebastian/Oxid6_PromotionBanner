@@ -29,7 +29,7 @@ class ManufacturerBannerController extends SebBaseController
         $aParams = Registry::getConfig()->getRequestParameter("editval");
         $oBanner->assign($aParams);
 
-        if ($this->checkFileUpload() === true) {
+        if ($this->checkFileUpload("MBAN@oxsebbanner__oxbannerpic") === true) {
             $oBanner->deletePicture("manufacturer/banner");
             $oBanner = Registry::getUtilsFile()->processFiles($oBanner);
         }

@@ -56,7 +56,7 @@ class ArticleBannerController extends SebBaseController
         $aParams = $oConf->getRequestParameter("editval");
         $oBanner->assign($aParams);
 
-        if ($this->checkFileUpload() === true) {
+        if ($this->checkFileUpload("BAN@oxsebbanner__oxbannerpic") === true) {
             $oBanner->deletePicture("product/banner");
             $oBanner = Registry::getUtilsFile()->processFiles($oBanner);
         }

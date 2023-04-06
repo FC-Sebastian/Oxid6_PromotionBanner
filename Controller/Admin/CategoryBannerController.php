@@ -55,9 +55,11 @@ class CategoryBannerController extends SebBaseController
         $oCategory = $this->getCategory();
         $oBanner = $this->getBanner($oCategory);
         $aParams = $oConf->getRequestParameter("editval");
+
+        $oCategory->assign($aParams);
         $oBanner->assign($aParams);
 
-        if ($this->checkFileUpload() === true) {
+        if ($this->checkFileUpload("CBAN@oxsebbanner__oxbannerpic") === true) {
             $oBanner->deletePicture("category/banner");
             $oBanner = Registry::getUtilsFile()->processFiles($oBanner);
         }
