@@ -54,9 +54,12 @@ class ArticleBannerController extends SebBaseController
         $oArticle = $this->getArticle();
         $oBanner = $this->getBanner($oArticle);
         $aParams = $oConf->getRequestParameter("editval");
-
         $oBanner->assign($aParams);
-        $oBanner = Registry::getUtilsFile()->processFiles($oBanner);
+
+        if ($this->checkFileUpload() === true) {
+            $oBanner->deletePicture("product/banner");
+            $oBanner = Registry::getUtilsFile()->processFiles($oBanner);
+        }
         $oBanner->save();
 
         $sBannerId = $oBanner->getId();
