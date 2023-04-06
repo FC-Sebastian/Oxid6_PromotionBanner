@@ -47,7 +47,7 @@
             </td>
 
             <td class="edittext">
-                <input class="editinput" name="myfile[CBAN@oxsebbanner__oxbannerpic[{$iIndex}]]" type="file">
+                <input class="editinput" name="myfile[CBAN@oxsebbanner__oxbannerpic]" type="file">
             </td>
 
             <td nowrap="nowrap">
@@ -68,6 +68,15 @@
             <td>
                 [{oxmultilang ident="SEB_BANNER_TO"}]
                 <input type="text" class="editinput" size="20" maxlength="20" name="editval[oxsebbanner__oxactiveto]" value="[{$editBanner->getTo()|oxformdate}]">
+            </td>
+        </tr>
+        <tr>
+            <td class="edittext">
+                [{oxmultilang ident="SEB_BANNER_HEREDITY"}]
+            </td>
+            <td>
+                <input type="hidden" name="editval[oxcategories__oxsebbannerheredity]" value="0">
+                <input type="checkbox" class="edittext" name="editval[oxcategories__oxsebbannerheredity]" value="1" [{if $edit->getSebBannerHeredity() == 1}]checked[{/if}]>
             </td>
         </tr>
     </table>

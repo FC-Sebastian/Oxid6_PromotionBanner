@@ -11,4 +11,5 @@ $aLang = [
     'SEB_BANNER_TO'           => 'Bis:',
     'SEB_BANNER_HEADER'       => 'Werbebanner Einstellungen',
     'SEB_BANNER_SAVE'         => 'Speichern',
+    'SEB_BANNER_HEREDITY'     => 'Banner an Unterkategorien vererben'
 ];

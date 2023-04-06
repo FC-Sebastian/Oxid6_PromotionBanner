@@ -16,8 +16,8 @@ class SebBaseController extends AdminDetailsController
         return $oBanner;
     }
 
-    public function checkFileUpload()
+    public function checkFileUpload($sInput)
     {
-        return isset($_FILES["myfile"]["name"]);
+        return $_FILES["myfile"]["name"][$sInput] !== "";
     }
 }

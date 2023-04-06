@@ -11,4 +11,5 @@ $aLang = [
     'SEB_BANNER_TO'           => 'to:',
     'SEB_BANNER_HEADER'       => 'Banner settings',
     'SEB_BANNER_SAVE'         => 'Save',
+    'SEB_BANNER_HEREDITY'     => 'Pass on banner to subcategories'
 ];

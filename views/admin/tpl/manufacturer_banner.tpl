@@ -54,7 +54,7 @@
             </td>
 
             <td class="edittext">
-                <input class="editinput" name="myfile[MBAN@oxsebbanner__oxbannerpic[{$iIndex}]]" type="file">
+                <input class="editinput" name="myfile[MBAN@oxsebbanner__oxbannerpic]" type="file">
             </td>
 
             <td nowrap="nowrap">
