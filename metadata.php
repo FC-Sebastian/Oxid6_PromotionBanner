@@ -7,7 +7,7 @@ $sMetadataVersion = '2.1';
  * Module information
  */
 $aModule = [
-    'id'          => 'seb_banner',
+    'id'          => 'fc_seb_banner',
     'title'       => 'Banner placeholder title',
     'description' => 'placeholder description or this module',
     'version'     => '1.0',
@@ -19,9 +19,9 @@ $aModule = [
         'manufacturer_banner' => \fc_seb\banner\Controller\Admin\ManufacturerBannerController::class
     ],
     'templates'   => [
-        'article_banner.tpl'      => 'seb/banner/views/admin/tpl/article_banner.tpl',
-        'category_banner.tpl'     => 'seb/banner/views/admin/tpl/category_banner.tpl',
-        'manufacturer_banner.tpl' => 'seb/banner/views/admin/tpl/manufacturer_banner.tpl'
+        'article_banner.tpl'      => 'fc-seb/banner/views/admin/tpl/article_banner.tpl',
+        'category_banner.tpl'     => 'fc-seb/banner/views/admin/tpl/category_banner.tpl',
+        'manufacturer_banner.tpl' => 'fc-seb/banner/views/admin/tpl/manufacturer_banner.tpl'
     ],
     'blocks'      => [
         [
