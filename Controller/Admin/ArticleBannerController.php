@@ -1,8 +1,8 @@
 <?php
 
-namespace seb\banner\Controller\Admin;
+namespace fc_seb\banner\Controller\Admin;
 
-use seb\banner\Controller\Admin\SebBaseController;
+use fc_seb\banner\Controller\Admin\SebBaseController;
 use OxidEsales\Eshop\Core\Registry;
 
 /**

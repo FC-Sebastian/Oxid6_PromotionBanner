@@ -5,7 +5,7 @@
  * See LICENSE file for license details.
  */
 
-namespace seb\banner\Model;
+namespace fc_seb\banner\Model;
 
 use OxidEsales\Eshop\Core\Registry;
 use oxRegistry;

@@ -11,7 +11,7 @@
   ],
   "extra": {
     "oxideshop": {
-      "target-directory": "seb/banner"
+      "target-directory": "fc-seb/banner"
     }
   },
   "require": {
@@ -19,7 +19,7 @@
   },
   "autoload": {
     "psr-4": {
-      "seb\\banner\\": "../../../../source/modules/seb/banner"
+      "fc-seb\\banner\\": "../../../../source/modules/fc-seb/banner"
     }
   }
 }
