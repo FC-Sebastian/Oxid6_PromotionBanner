@@ -84,10 +84,10 @@ class Category extends Category_Parent
     {
         $oActive = false;
         $oBanner = oxNew(Banner::class);
+        $sCatId = $this->getSebBannerId();
 
-        if ($this->getSebBannerId() !== null && $this->getSebBannerId() !== "") {
-            $oBanner->load($this->getSebBannerId());
-            $oActive = $oBanner->getActive();
+        if ($sCatId !== null && $sCatId !== ""  && $oBanner->getActive($sCatId) === true) {
+            $oActive = true;
         } else {
             $oParent = $this;
             if ($oParent->load($this->getParentId()) === true) {
@@ -110,7 +110,13 @@ class Category extends Category_Parent
         } else {
             $oBanner->load($this->getParentBannerId());
         }
-        return $oBanner->getPictureUrl("category/banner");
+        $sUrl = $oBanner->getPictureUrl("category/banner");
+
+        if (Registry::getUtilsFile()->urlValidate($sUrl) === false) {
+            return false;
+        }
+
+        return $sUrl;
     }
 
     /**
@@ -122,11 +128,11 @@ class Category extends Category_Parent
     public function getParentPromotionActive()
     {
         $oActive = false;
+        $sCatId = $this->getSebBannerId();
         $oBanner = oxNew(Banner::class);
 
-        if ($this->getSebBannerId() !== null && $this->getSebBannerId() !== "" && intval($this->getSebBannerHeredity()) === 1) {
-            $oBanner->load($this->getSebBannerId());
-            $oActive = $oBanner->getActive();
+        if ($sCatId !== null && $sCatId !== "" && intval($this->getSebBannerHeredity()) === 1 && $oBanner->getActive($sCatId) === true) {
+            $oActive = true;
         } else {
             $oParent = $this;
             if ($oParent->load($this->getParentId()) === true) {
@@ -145,8 +151,9 @@ class Category extends Category_Parent
     public function getParentBannerId()
     {
         $sBannerId = false;
+        $oBanner = oxNew(Banner::class);
 
-        if ($this->getSebBannerId() !== null && $this->getSebBannerId() !== "" && intval($this->getSebBannerHeredity()) === 1) {
+        if ($this->getSebBannerId() !== null && $this->getSebBannerId() !== "" && intval($this->getSebBannerHeredity()) === 1 && $oBanner->getActive($this->getSebBannerId()) === true) {
             $sBannerId = $this->getSebBannerId();
         } else {
             $oParent = $this;

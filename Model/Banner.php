@@ -96,12 +96,17 @@ class Banner extends \OxidEsales\Eshop\Core\Model\MultiLanguageModel
     }
 
     /**
+     * if sBannerId is given loads banner with it
      * returns true if current time is within timeframe specified by banner OXACTIVEFROM and OXACTIVETO
      *
      * @return bool
      */
-    public function getActive()
+    public function getActive($sBannerId = false)
     {
+        if ($sBannerId !== false) {
+            $this->load($sBannerId);
+        }
+
         $sFrom = $this->getFrom();
         $sTo = $this->getTo();
 

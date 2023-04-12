@@ -44,18 +44,19 @@ class Article extends Article_Parent
     public function getPromotionActive()
     {
         $oBanner = oxNew(Banner::class);
+        $sBannerId = $this->getSebBannerId();
+        $oActive = false;
 
-        if ($this->getSebBannerId() !== null && $this->getSebBannerId() !== "") {
-            $oBanner->load($this->getSebBannerId());
+        if ($sBannerId !== null && $sBannerId !== "" && $oBanner->getActive($sBannerId) === true) {
+            $oActive = true;
         } else {
             $oManu = $this->getManufacturer();
-            $oBanner->load($oManu->getSebBannerId());
+            $oActive = $oBanner->getActive($oManu->getSebBannerId());
         }
-        return $oBanner->getActive();
+        return $oActive;
     }
 
     /**
-     * returns url of banner picture
      * if article has banner returns its url
      * otherwise returns url of manufacturers banner
      *
@@ -64,15 +65,21 @@ class Article extends Article_Parent
     public function getSebBannerUrl()
     {
         $oBanner = oxNew(Banner::class);
+        $sBannerId = $this->getSebBannerId();
+        $sUrl = false;
 
-        if ($this->getSebBannerId() !== null && $this->getSebBannerId() !== "") {
-            $oBanner->load($this->getSebBannerId());
-            return $oBanner->getPictureUrl("product/banner");
+        if ($sBannerId !== null && $sBannerId !== "" && $oBanner->getActive($sBannerId) === true) {
+            $sUrl = $oBanner->getPictureUrl("product/banner");
         } else {
             $oManu = $this->getManufacturer();
             $oBanner->load($oManu->getSebBannerId());
-            return $oBanner->getPictureUrl("manufacturer/banner");
+            $sUrl = $oBanner->getPictureUrl("manufacturer/banner");
         }
+
+        if (Registry::getUtilsFile()->urlValidate($sUrl) === false) {
+            return false;
+        }
+        return $sUrl;
     }
 
     /**
