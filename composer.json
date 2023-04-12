@@ -4,6 +4,7 @@
   "type": "oxideshop-module",
   "license": "proprietary",
   "version": "1.0",
+  "minimum-stability": "stable",
   "authors": [
     {
       "name": "FC-Sebastian"
