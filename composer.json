@@ -19,7 +19,7 @@
   },
   "autoload": {
     "psr-4": {
-      "fc-seb\\banner\\": "../../../../source/modules/fc-seb/banner"
+      "fc_seb\\banner\\": "../../../../source/modules/fc-seb/banner"
     }
   }
 }
