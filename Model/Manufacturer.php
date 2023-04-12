@@ -2,18 +2,39 @@
 
 namespace seb\banner\Model;
 
+/**
+ * extends Manufacturer model to add/modify the necessary functions
+ */
 class Manufacturer extends Manufacturer_Parent
 {
+    /**
+     * returns OXSEBBANNERID of manufacturer
+     *
+     * @return mixed
+     */
     public function getSebBannerId()
     {
         return $this->oxmanufacturers__oxsebbannerid->value;
     }
 
+    /**
+     * sets OXSEBBANNERID of manufacturer
+     *
+     * @param $sBannerId
+     * @return void
+     */
     public function setSebBannerId($sBannerId)
     {
         $this->oxmanufacturers__oxsebbannerid = new \OxidEsales\Eshop\Core\Field($sBannerId);
     }
 
+    /**
+     * deletes banner of manufacturer to be deleted
+     * then calls manufacturer delete method
+     *
+     * @param $sOXID
+     * @return void
+     */
     public function delete($sOXID = false)
     {
         if (!$sOXID) {

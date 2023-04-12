@@ -7,15 +7,33 @@ use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\DbMetaDataHandler;
 use OxidEsales\Eshop\Core\Registry;
 
+/**
+ * handles oxid onActivate event
+ */
 class Setup extends Base
 {
 
+    /**
+     * onActivate event function
+     * changes db and updates db views
+     *
+     * @throws \OxidEsales\Eshop\Core\Exception\DatabaseConnectionException
+     * @throws \OxidEsales\Eshop\Core\Exception\DatabaseErrorException
+     * @return void
+     */
     public static function onActivate()
     {
         self::alterDbTables();
         self::updateDbViews();
     }
 
+    /**
+     * adds necessary columns and table to db if not already done
+     *
+     * @return void
+     * @throws \OxidEsales\Eshop\Core\Exception\DatabaseConnectionException
+     * @throws \OxidEsales\Eshop\Core\Exception\DatabaseErrorException
+     */
     public static function alterDbTables()
     {
         $db = DatabaseProvider::getDb();
@@ -28,6 +46,11 @@ class Setup extends Base
         }
     }
 
+    /**
+     * updates db views
+     *
+     * @return void
+     */
     public static function updateDbViews()
     {
         if (Registry::getSession()->getVariable("malladmin")){

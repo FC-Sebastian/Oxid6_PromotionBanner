@@ -6,48 +6,36 @@ use OxidEsales\Eshop\Core\Registry;
 use seb\banner\Controller\Admin\SebBaseController;
 use stdClass;
 
+/**
+ * controller for category banner tab
+ */
 class CategoryBannerController extends SebBaseController
 {
     protected $_sThisTemplate = "category_banner.tpl";
 
     protected $_oCategory = null;
 
+    /**
+     * calls render method of parent and stores category and banner object in aViewData array
+     *
+     * @return string
+     */
     public function render()
     {
         parent::render();
 
-        $oCategory = oxNew(\OxidEsales\Eshop\Application\Model\Category::class);
-        $soxId = $this->_aViewData["oxid"] = $this->getEditObjectId();
+        $this->_aViewData['edit'] = $this->getCategory();
+        $this->_aViewData['editBanner'] = $this->getBanner($this->getCategory());
 
-        if (isset($soxId) && $soxId != "-1") {
-            // load object
-            $iCatLang = \OxidEsales\Eshop\Core\Registry::getConfig()->getRequestParameter("catlang");
-
-            if (!isset($iCatLang)) {
-                $iCatLang = $this->_iEditLang;
-            }
-
-            $this->_aViewData["catlang"] = $iCatLang;
-
-            $oCategory->loadInLang($iCatLang, $soxId);
-
-            //Disable editing for derived items
-            if ($oCategory->isDerived()) {
-                $this->_aViewData['readonly'] = true;
-            }
-
-            foreach (\OxidEsales\Eshop\Core\Registry::getLang()->getLanguageNames() as $id => $language) {
-                $oLang = new stdClass();
-                $oLang->sLangDesc = $language;
-                $oLang->selected = ($id == $this->_iEditLang);
-                $this->_aViewData["otherlang"][$id] = clone $oLang;
-            }
-        }
-        $this->_aViewData['edit'] = $oCategory;
-        $this->_aViewData['editBanner'] = $this->getBanner($oCategory);
         return "category_banner.tpl";
     }
 
+    /**
+     * saves category and banner to db
+     *
+     * @return void
+     * @throws \Exception
+     */
     public function save()
     {
         parent::save();
@@ -64,22 +52,27 @@ class CategoryBannerController extends SebBaseController
             $oBanner = Registry::getUtilsFile()->processFiles($oBanner);
         }
         $oBanner->save();
-
         $sBannerId = $oBanner->getId();
+
         $oCategory->setSebBannerId($sBannerId);
         $oCategory->setLanguage($this->_iEditLang);
         $oCategory->save();
     }
 
+    /**
+     * stores object of current category in _oCategory and returns it
+     *
+     * @param $blReset
+     * @return mixed|\OxidEsales\Eshop\Application\Model\Category|null
+     */
     public function getCategory($blReset = false)
     {
         if ($this->_oCategory !== null && !$blReset) {
             return $this->_oCategory;
         }
-        $sProductId = $this->getEditObjectId();
 
         $oCat = oxNew(\OxidEsales\Eshop\Application\Model\Category::class);
-        $oCat->load($sProductId);
+        $oCat->load($this->getEditObjectId());
 
         return $this->_oCategory = $oCat;
     }

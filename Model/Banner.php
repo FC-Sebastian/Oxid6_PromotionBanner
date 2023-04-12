@@ -13,9 +13,9 @@ use oxField;
 
 /**
  * Banner manager
- *
+ * gets and sets banner data and handles saving/deleting of banners
  */
-class Banner extends \OxidEsales\Eshop\Core\Model\MultiLanguageModel implements \OxidEsales\Eshop\Core\Contract\IUrl
+class Banner extends \OxidEsales\Eshop\Core\Model\MultiLanguageModel
 {
     protected static $_aRootBanner = [];
 
@@ -34,86 +34,7 @@ class Banner extends \OxidEsales\Eshop\Core\Model\MultiLanguageModel implements 
     }
 
     /**
-     * Returns raw content seo url
-     *
-     * @param int $iLang language id
-     * @param int $iPage page number [optional]
-     *
-     * @return string
-     */
-    public function getBaseSeoLink($iLang, $iPage = 0)
-    {
-        $oEncoder = \OxidEsales\Eshop\Core\Registry::get(\OxidEsales\Eshop\Application\Model\SeoEncoderBanner::class);
-        if (!$iPage) {
-            return $oEncoder->getBannerUrl($this, $iLang);
-        }
-
-        return $oEncoder->getBannerPageUrl($this, $iPage, $iLang);
-    }
-
-    /**
-     * Returns banner link Url
-     *
-     * @param int $iLang language id [optional]
-     *
-     * @return string
-     */
-    public function getLink($iLang = null)
-    {
-        if (!\OxidEsales\Eshop\Core\Registry::getUtils()->seoIsActive()) {
-            return $this->getStdLink($iLang);
-        }
-
-        if ($iLang === null) {
-            $iLang = $this->getLanguage();
-        }
-
-        if (!isset($this->_aSeoUrls[$iLang])) {
-            $this->_aSeoUrls[$iLang] = $this->getBaseSeoLink($iLang);
-        }
-
-        return $this->_aSeoUrls[$iLang];
-    }
-
-    /**
-     * Returns base dynamic url: shopurl/index.php?cl=details
-     *
-     * @param int  $iLang   language id
-     * @param bool $blAddId add current object id to url or not
-     * @param bool $blFull  return full including domain name [optional]
-     *
-     * @return string
-     */
-    public function getBaseStdLink($iLang, $blAddId = true, $blFull = true)
-    {
-        $sUrl = '';
-        if ($blFull) {
-            //always returns shop url, not admin
-            $sUrl = $this->getConfig()->getShopUrl($iLang, false);
-        }
-
-        return $sUrl . "index.php?cl=bannerlist" . ($blAddId ? "&amp;cnid=v_" . $this->getId() : "");
-    }
-
-    /**
-     * Returns standard URL to banner
-     *
-     * @param int   $iLang   language
-     * @param array $aParams additional params to use [optional]
-     *
-     * @return string
-     */
-    public function getStdLink($iLang = null, $aParams = [])
-    {
-        if ($iLang === null) {
-            $iLang = $this->getLanguage();
-        }
-
-        return \OxidEsales\Eshop\Core\Registry::getUtilsUrl()->processUrl($this->getBaseStdLink($iLang), true, $aParams, $iLang);
-    }
-
-    /**
-     * Returns banner title
+     * Returns value of banner OXACTIVETO db field
      *
      * @return string
      */
@@ -123,7 +44,7 @@ class Banner extends \OxidEsales\Eshop\Core\Model\MultiLanguageModel implements 
     }
 
     /**
-     * Returns banner title
+     * Returns value of banner OXACTIVEFROM db field
      *
      * @return string
      */
@@ -132,11 +53,24 @@ class Banner extends \OxidEsales\Eshop\Core\Model\MultiLanguageModel implements 
         return $this->oxsebbanner__oxactivefrom->value;
     }
 
+    /**
+     * Returns value of banner OXBANNERPIC db field
+     *
+     * @return mixed
+     */
     public function getOxBannerPic()
     {
         return $this->oxsebbanner__oxbannerpic->value;
     }
 
+    /**
+     * returns url of picture via path and file
+     * if file is not given loads banner picture name from db
+     *
+     * @param $sPath
+     * @param $sFile
+     * @return string
+     */
     public function getPictureUrl($sPath, $sFile = false)
     {
         $sBase = "pictures/master/";
@@ -147,14 +81,25 @@ class Banner extends \OxidEsales\Eshop\Core\Model\MultiLanguageModel implements 
         return Registry::getConfig()->getUrl($sFile,$sDir);
     }
 
-    public function getPictureDir($sPath, $sFile = null)
+    /**
+     * returns absolute path of picture directory specified via path
+     *
+     * @param $sPath
+     * @return bool|string
+     */
+    public function getPictureDir($sPath)
     {
         $sBase = "pictures/master/";
         $sDir = $sBase.$sPath;
 
-        return Registry::getConfig()->getDir($sFile, $sDir, true);
+        return Registry::getConfig()->getDir(null, $sDir, true);
     }
 
+    /**
+     * returns true if current time is within timeframe specified by banner OXACTIVEFROM and OXACTIVETO
+     *
+     * @return bool
+     */
     public function getActive()
     {
         $sFrom = $this->getFrom();
@@ -163,11 +108,16 @@ class Banner extends \OxidEsales\Eshop\Core\Model\MultiLanguageModel implements 
         return strtotime($sFrom) <= time() && time() <= strtotime($sTo);
     }
 
+    /**
+     * deletes picture by getting absolute path via absolute path from getPictureDir
+     * and filename via getOxBannerPic
+     *
+     * @param $sPath
+     * @return void
+     */
     public function deletePicture($sPath)
     {
         $sDir = $this->getPictureDir($sPath);
-        $oUtilPic = Registry::getUtilsPic();
-
-        $oUtilPic->pictureDelete($this->getOxBannerPic(), $sDir);
+        Registry::getUtilsPic()->pictureDelete($this->getOxBannerPic(), $sDir);
     }
 }

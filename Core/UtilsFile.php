@@ -2,6 +2,9 @@
 
 namespace seb\banner\Core;
 
+/**
+ * overriding $_aTypeToPath of \OxidEsales\Eshop\Core\UtilsFile to store pictures in custom directories
+ */
 class UtilsFile extends UtilsFile_Parent
 {
     /**
@@ -13,10 +16,12 @@ class UtilsFile extends UtilsFile_Parent
 
     /**
      * Image type and its folder information array
+     * added CBAN, MBAN and BAN for storing banner pictures
      *
      * @var array
      */
-    protected $_aTypeToPath = ['TC'    => 'master/category/thumb',
+    protected $_aTypeToPath = [
+        'TC'    => 'master/category/thumb',
         'CICO'  => 'master/category/icon',
         'PICO'  => 'master/category/promo_icon',
         'MICO'  => 'master/manufacturer/icon',
