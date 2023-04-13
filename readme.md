@@ -11,7 +11,8 @@ Navigate to the root of the Oxid eshop you want to install this module on.
 **Step two:**
 
 Open the terminal and execute: 
-	`composer require fcseb/banner` 
+
+	composer require fcseb/banner 
 to download and install the latest stable version of this module.
 	
 **Step three:**
@@ -27,13 +28,15 @@ Navigate to the root of the Oxid eshop you want to install this module on.
 **Step two:**
 
 Open the Terminal and execute 
-	`git clone https://github.com/FC-Sebastian/Oxid6_PromotionBanner source/modules/fcSeb/banner`
+
+	git clone https://github.com/FC-Sebastian/Oxid6_PromotionBanner source/modules/fcSeb/banner
 .
 	
 OR
 	
 Navigate to source/modules and create a folder named "fcSeb" and within that newly created folder create another one named "banner".
 Download a stable version of this module from 
+
 	https://github.com/FC-Sebastian/Oxid6_PromotionBanner 
 and paste it into the "banner" folder.
 	
@@ -41,14 +44,17 @@ and paste it into the "banner" folder.
 
 Navigate to the root of your Oxid ehop open the Terminal and execute
 
-	`vendor/bin/oe-console oe:module:install-configuration source/modules/fcSeb/banner`
+	vendor/bin/oe-console oe:module:install-configuration source/modules/fcSeb/banner
+.
 	
 **Step four:**
 
 Open the Terminal and execute 
-	`composer config repositories.fcseb/banner path source/modules/fcSeb/banner`.
+
+	composer config repositories.fcseb/banner path source/modules/fcSeb/banner.
 Finally execute 
-	`composer require fcseb/banner`.
+
+	composer require fcseb/banner.
 	
 **Step five:**
 
