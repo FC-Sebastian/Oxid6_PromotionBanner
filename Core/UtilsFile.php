@@ -1,6 +1,6 @@
 <?php
 
-namespace fc_seb\banner\Core;
+namespace fcSeb\banner\Core;
 
 /**
  * overriding $_aTypeToPath of \OxidEsales\Eshop\Core\UtilsFile to store pictures in custom directories

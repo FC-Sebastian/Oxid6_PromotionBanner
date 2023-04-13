@@ -1,6 +1,6 @@
 <?php
 
-namespace fc_seb\banner\Core;
+namespace fcSeb\banner\Core;
 
 /**
  * extending \OxidEsales\Eshop\Core\UtilsPic to add pictureDelete() method to bypass _isPicDeletable of safePictureDelete()

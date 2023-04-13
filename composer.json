@@ -1,5 +1,5 @@
 {
-  "name": "fc-seb/banner",
+  "name": "fcseb/banner",
   "description": "description",
   "type": "oxideshop-module",
   "license": "proprietary",
@@ -11,7 +11,7 @@
   ],
   "extra": {
     "oxideshop": {
-      "target-directory": "fc-seb/banner"
+      "target-directory": "fcSeb/banner"
     }
   },
   "require": {
@@ -19,7 +19,7 @@
   },
   "autoload": {
     "psr-4": {
-      "fc_seb\\banner\\": "../../../../source/modules/fc-seb/banner"
+      "fcSeb\\banner\\": "../../../source/modules/fcSeb/banner"
     }
   }
 }

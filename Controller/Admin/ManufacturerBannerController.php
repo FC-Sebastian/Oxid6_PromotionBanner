@@ -1,9 +1,9 @@
 <?php
 
-namespace fc_seb\banner\Controller\Admin;
+namespace fcSeb\banner\Controller\Admin;
 
 use OxidEsales\Eshop\Core\Registry;
-use fc_seb\banner\Controller\Admin\SebBaseController;
+use fcSeb\banner\Controller\Admin\SebBaseController;
 
 /**
  * controller for manufacturer banner tab

@@ -1,9 +1,9 @@
 <?php
 
-namespace fc_seb\banner\Controller\Admin;
+namespace fcSeb\banner\Controller\Admin;
 
 use OxidEsales\Eshop\Application\Controller\Admin\AdminDetailsController;
-use fc_seb\banner\Model\Banner;
+use fcSeb\banner\Model\Banner;
 
 /**
  * base controller for this model, extends AdminDetailsController

@@ -1,6 +1,6 @@
 <?php
 
-namespace fc_seb\banner\Model;
+namespace fcSeb\banner\Model;
 
 use OxidEsales\Eshop\Application\Model\Manufacturer;
 

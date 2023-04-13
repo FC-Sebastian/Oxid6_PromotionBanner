@@ -1,6 +1,6 @@
 <?php
 
-namespace fc_seb\banner\Model;
+namespace fcSeb\banner\Model;
 
 /**
  * extends Manufacturer model to add/modify the necessary functions

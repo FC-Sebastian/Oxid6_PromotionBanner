@@ -1,6 +1,6 @@
 <?php
 
-namespace fc_seb\banner\Core\Events;
+namespace fcSeb\banner\Core\Events;
 
 use OxidEsales\Eshop\Core\Base;
 use OxidEsales\Eshop\Core\DatabaseProvider;
