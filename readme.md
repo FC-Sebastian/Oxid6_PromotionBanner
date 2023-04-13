@@ -1,8 +1,9 @@
-#Installation guide
+# Installation guide
 
 ***it is recommended to install automatically using composer but you can also install manually if necessary***
 
-##automatic:
+## automatic:
+
 **Step one:** 
 	Navigate to the root of the Oxid eshop you want to install this module on.
 	
@@ -12,7 +13,8 @@
 **Step three:**
 	Open the admin page of your Oxid eshop. Navigate to the "Modules" table. You should see that the Module was installed successfully.
 	
-###manual:
+### manual:
+
 **Step one:**
 	Navigate to the root of the Oxid eshop you want to install this module on.
 	
