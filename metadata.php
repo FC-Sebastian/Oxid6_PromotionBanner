@@ -7,7 +7,7 @@ $sMetadataVersion = '2.1';
  * Module information
  */
 $aModule = [
-    'id'          => 'fc_seb_banner',
+    'id'          => 'fc-seb_banner',
     'title'       => 'Banner placeholder title',
     'description' => 'placeholder description or this module',
     'version'     => '1.0',
