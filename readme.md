@@ -39,7 +39,9 @@ and paste it into the "banner" folder.
 	
 **Step three:**
 
-Navigate to the root of your Oxid ehop open the Terminal and execute `vendor/bin/oe-console oe:module:install-configuration source/modules/fcSeb/banner`.
+Navigate to the root of your Oxid ehop open the Terminal and execute 
+	`vendor/bin/oe-console oe:module:install-configuration source/modules/fcSeb/banner`
+.
 	
 **Step four:**
 
