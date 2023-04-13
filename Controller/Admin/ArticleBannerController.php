@@ -62,12 +62,11 @@ class ArticleBannerController extends SebBaseController
     /**
      * stores object of currently edited article in _oArticle and returns it
      *
-     * @param $blReset
      * @return mixed|\OxidEsales\Eshop\Application\Model\Article|null
      */
-    public function getArticle($blReset = false)
+    public function getArticle()
     {
-        if ($this->_oArticle !== null && !$blReset) {
+        if ($this->_oArticle !== null) {
             return $this->_oArticle;
         }
 

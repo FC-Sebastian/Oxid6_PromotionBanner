@@ -77,21 +77,24 @@ class Category extends Category_Parent
 
     /**
      * returns activity status of category or parent banner if one exists
+     * also checks whether a banner is inherited from a parent
      *
      * @return bool
      */
-    public function getPromotionActive()
+    public function getPromotionActive($blIsParent = false)
     {
         $oActive = false;
         $oBanner = oxNew(Banner::class);
-        $sCatId = $this->getSebBannerId();
+        $sBannerId = $this->getSebBannerId();
 
-        if ($sCatId !== null && $sCatId !== ""  && $oBanner->getActive($sCatId) === true) {
+        if ($blIsParent === true && $sBannerId !== null && $sBannerId !== "" && intval($this->getSebBannerHeredity()) === 1 && $oBanner->getActive($sBannerId) === true){
+            $oActive = true;
+        } elseif ($blIsParent === false && $sBannerId !== null && $sBannerId !== ""  && $oBanner->getActive($sBannerId) === true) {
             $oActive = true;
         } else {
             $oParent = $this;
             if ($oParent->load($this->getParentId()) === true) {
-                $oActive = $oParent->getParentPromotionActive();
+                $oActive = $oParent->getPromotionActive(true);
             }
         }
         return $oActive;
@@ -105,7 +108,9 @@ class Category extends Category_Parent
     public function getSebBannerUrl()
     {
         $oBanner = oxNew(Banner::class);
-        if ($this->getSebBannerId() !== null && $this->getSebBannerId() !== "") {
+        $sBannerId = $this->getSebBannerId();
+
+        if ($sBannerId !== null && $sBannerId !== "" && $oBanner->getActive($sBannerId) === true) {
             $oBanner->load($this->getSebBannerId());
         } else {
             $oBanner->load($this->getParentBannerId());
@@ -117,29 +122,6 @@ class Category extends Category_Parent
         }
 
         return $sUrl;
-    }
-
-    /**
-     * returns banner active status of category if it passes on its banner
-     * or calls getParentPromotionActive() of parent category
-     *
-     * @return bool
-     */
-    public function getParentPromotionActive()
-    {
-        $oActive = false;
-        $sCatId = $this->getSebBannerId();
-        $oBanner = oxNew(Banner::class);
-
-        if ($sCatId !== null && $sCatId !== "" && intval($this->getSebBannerHeredity()) === 1 && $oBanner->getActive($sCatId) === true) {
-            $oActive = true;
-        } else {
-            $oParent = $this;
-            if ($oParent->load($this->getParentId()) === true) {
-                $oActive = $oParent->getParentPromotionActive();
-            }
-        }
-        return $oActive;
     }
 
     /**

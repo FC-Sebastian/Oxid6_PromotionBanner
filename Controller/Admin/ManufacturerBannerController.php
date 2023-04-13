@@ -60,12 +60,11 @@ class ManufacturerBannerController extends SebBaseController
     /**
      * stores manufacturer object in _oManufacturer and returns it
      *
-     * @param $blReset
      * @return mixed|\OxidEsales\Eshop\Application\Model\Manufacturer
      */
-    public function getManufacturer($blReset = false)
+    public function getManufacturer()
     {
-        if ($this->_oManufacturer !== null && !$blReset) {
+        if ($this->_oManufacturer !== null) {
             return $this->_oManufacturer;
         }
 

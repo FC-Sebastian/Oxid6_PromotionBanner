@@ -8,8 +8,8 @@ $sMetadataVersion = '2.1';
  */
 $aModule = [
     'id'          => 'fcSeb_banner',
-    'title'       => 'Banner placeholder title',
-    'description' => 'placeholder description or this module',
+    'title'       => "Seb's Banners" ,
+    'description' => 'This module allows you to add promotional banners to articles, manufacturers or categories and limit them with a customizable timeframe.',
     'version'     => '1.0',
     'author'      => 'FC-Sebastian',
     'controllers' => [

@@ -45,7 +45,6 @@ class Article extends Article_Parent
     {
         $oBanner = oxNew(Banner::class);
         $sBannerId = $this->getSebBannerId();
-        $oActive = false;
 
         if ($sBannerId !== null && $sBannerId !== "" && $oBanner->getActive($sBannerId) === true) {
             $oActive = true;
@@ -66,7 +65,6 @@ class Article extends Article_Parent
     {
         $oBanner = oxNew(Banner::class);
         $sBannerId = $this->getSebBannerId();
-        $sUrl = false;
 
         if ($sBannerId !== null && $sBannerId !== "" && $oBanner->getActive($sBannerId) === true) {
             $sUrl = $oBanner->getPictureUrl("product/banner");

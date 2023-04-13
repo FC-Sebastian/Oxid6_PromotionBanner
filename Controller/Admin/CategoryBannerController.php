@@ -62,12 +62,11 @@ class CategoryBannerController extends SebBaseController
     /**
      * stores object of current category in _oCategory and returns it
      *
-     * @param $blReset
      * @return mixed|\OxidEsales\Eshop\Application\Model\Category|null
      */
-    public function getCategory($blReset = false)
+    public function getCategory()
     {
-        if ($this->_oCategory !== null && !$blReset) {
+        if ($this->_oCategory !== null) {
             return $this->_oCategory;
         }
 
