@@ -23,9 +23,9 @@
 
     <table cellspacing="0" cellpadding="0" width="100%" border="0" class="listTable">
         <tr>
-            <th colspan="5" valign="top">
+            <th colspan="4" valign="top">
                 [{oxmultilang ident="SEB_BANNER_HEADER"}]
-                [{oxinputhelp ident="SEB_BANNER_HELP"}]
+                [{oxinputhelp ident="SEB_BANNER_HELP_CATEGORY"}]
             </th>
         </tr>
 
@@ -65,16 +65,17 @@
                 [{oxmultilang ident="SEB_BANNER_FROM"}]
                 <input type="text" class="editinput" size="20" maxlength="20" name="editval[oxsebbanner__oxactivefrom]" value="[{$editBanner->getFrom()|oxformdate}]">
             </td>
-            <td>
+            <td class="edittext">
                 [{oxmultilang ident="SEB_BANNER_TO"}]
                 <input type="text" class="editinput" size="20" maxlength="20" name="editval[oxsebbanner__oxactiveto]" value="[{$editBanner->getTo()|oxformdate}]">
             </td>
+            <td></td>
         </tr>
         <tr>
             <td class="edittext">
                 [{oxmultilang ident="SEB_BANNER_HEREDITY"}]
             </td>
-            <td>
+            <td colspan="3" class="edittext">
                 <input type="hidden" name="editval[oxcategories__oxsebbannerheredity]" value="0">
                 <input type="checkbox" class="edittext" name="editval[oxcategories__oxsebbannerheredity]" value="1" [{if $edit->getSebBannerHeredity() == 1}]checked[{/if}]>
             </td>

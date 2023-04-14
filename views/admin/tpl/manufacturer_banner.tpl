@@ -30,7 +30,7 @@
 
     <table cellspacing="0" cellpadding="0" width="100%" border="0" class="listTable">
         <tr>
-            <th colspan="5" valign="top">
+            <th colspan="4" valign="top">
                 [{oxmultilang ident="SEB_BANNER_HEADER"}]
                 [{oxinputhelp ident="SEB_BANNER_HELP"}]
             </th>
@@ -72,10 +72,11 @@
                 [{oxmultilang ident="SEB_BANNER_FROM"}]
                 <input type="text" class="editinput" size="20" maxlength="20" name="editval[oxsebbanner__oxactivefrom]" value="[{$editBanner->getFrom()|oxformdate}]">
             </td>
-            <td>
+            <td class="edittext">
                 [{oxmultilang ident="SEB_BANNER_TO"}]
                 <input type="text" class="editinput" size="20" maxlength="20" name="editval[oxsebbanner__oxactiveto]" value="[{$editBanner->getTo()|oxformdate}]">
             </td>
+            <td></td>
         </tr>
     </table>
     <input type="submit" class="editinput" name="save" value="[{ oxmultilang ident="SEB_BANNER_SAVE" }]" onClick="Javascript:document.myedit.fnc.value='save'" [{$readonly}]><br>
