@@ -14,7 +14,7 @@ Navigate to the root of the Oxid eshop you want to install this module on.
 
 Open the terminal and execute: 
 
-	composer require fcseb/banner 
+	composer require fcseb/banner -n
 to download and install the latest stable version of this module.
 
 	
@@ -57,7 +57,7 @@ Open the Terminal and execute
 	composer config repositories.fcseb/banner path source/modules/fcSeb/banner
 Finally execute 
 
-	composer require fcseb/banner
+	composer require fcseb/banner -n
 
 	
 **Step five:**
