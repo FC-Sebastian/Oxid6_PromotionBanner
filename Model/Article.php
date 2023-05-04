@@ -6,8 +6,6 @@ use OxidEsales\Eshop\Application\Model\Manufacturer;
 
 use OxidEsales\Eshop\Core\Registry;
 
-use function OxidEsales\EshopCommunity\Tests\Unit\Application\Controller\getSeoProcType;
-
 /**
  * extending article model to modify/add necessary functions
  */
