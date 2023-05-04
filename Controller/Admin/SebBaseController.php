@@ -35,4 +35,15 @@ class SebBaseController extends AdminDetailsController
     {
         return $_FILES["myfile"]["name"][$sInput] !== "";
     }
+
+    /**
+     * checks if the given string is a URL
+     *
+     * @param $sUrl
+     * @return bool
+     */
+    public function isURL($sUrl)
+    {
+        return filter_var($sUrl, FILTER_VALIDATE_URL) !== false;
+    }
 }

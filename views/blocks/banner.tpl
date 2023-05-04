@@ -2,13 +2,17 @@
 
 [{if $sClass === "alist"}]
     [{assign var="oCat" value=$oView->getActiveCategory()}]
-    [{if $oCat->getPromotionActive() === true && $oCat->getSebBannerUrl() !== false}]
-        <img src="[{$oCat->getSebBannerUrl()}]" class="" style="width: 100%">
+    [{assign var="oBanner" value=$oCat->getActiveBanner()}]
+
+    [{if $oBanner !== false && $oCat->getSebBannerUrl() !== false}]
+        <a href="[{$oBanner->oxsebbanner__oxbannerlink->value}]" [{if $oBanner->getNewTab() === true}]target="_blank"[{/if}]><img src="[{$oCat->getSebBannerUrl()}]" class="" style="width: 100%"></a>
     [{/if}]
 [{elseif $sClass === "details"}]
     [{assign var="oProduct" value=$oView->getProduct()}]
-    [{if $oProduct->getPromotionActive() === true && $oProduct->getSebBannerUrl() !== false}]
-        <img src="[{$oProduct->getSebBannerUrl()}]" class="" style="width: 100%">
+    [{assign var="oBanner" value=$oProduct->getActiveBanner()}]
+
+    [{if $oBanner !== false && $oProduct->getSebBannerPicUrl() !== false}]
+        <a href="[{$oBanner->oxsebbanner__oxbannerlink->value}]" [{if $oBanner->getNewTab() === true}]target="_blank"[{/if}]><img src="[{$oProduct->getSebBannerPicUrl()}]" class="" style="width: 100%"></a>
     [{/if}]
 [{/if}]
 

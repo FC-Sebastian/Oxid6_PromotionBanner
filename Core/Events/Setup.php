@@ -42,7 +42,7 @@ class Setup extends Base
             $db->execute("ALTER TABLE oxcategories ADD OXSEBBANNERID CHAR(32) NULL");
             $db->execute("ALTER TABLE oxcategories ADD OXSEBBANNERHEREDITY TINYINT(1) DEFAULT 0");
             $db->execute("ALTER TABLE oxmanufacturers ADD OXSEBBANNERID CHAR(32) NULL");
-            $db->execute("CREATE TABLE oxsebbanner (OXID CHAR(32) COLLATE latin1_general_ci,OXSHOPID INT(11) DEFAULT 1, OXACTIVEFROM DATETIME, OXACTIVETO DATETIME, OXBANNERPIC VARCHAR(128) COLLATE utf8_general_ci, PRIMARY KEY (OXID))");
+            $db->execute("CREATE TABLE oxsebbanner (OXID CHAR(32) COLLATE latin1_general_ci,OXSHOPID INT(11) DEFAULT 1, OXACTIVEFROM DATETIME, OXACTIVETO DATETIME, OXBANNERPIC VARCHAR(128) COLLATE utf8_general_ci,OXBANNERLINK varchar(255), OXNEWTAB TINYINT(1) DEFAULT 0, PRIMARY KEY (OXID))");
         }
     }
 

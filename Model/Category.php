@@ -9,6 +9,8 @@ use OxidEsales\Eshop\Core\Registry;
  */
 class Category extends Category_Parent
 {
+    protected $_oBanner = false;
+
     /**
      * returns OXSEBBANNERID of category
      *
@@ -76,28 +78,34 @@ class Category extends Category_Parent
     }
 
     /**
-     * returns activity status of category or parent banner if one exists
-     * also checks whether a banner is inherited from a parent
+     * returns this or a parent category's active banner as object
+     * returns false if no active banner was found
      *
-     * @return bool
+     * @param $blIsParent
+     * @return bool|mixed|null
      */
-    public function getPromotionActive($blIsParent = false)
+    public function getActiveBanner($blIsParent = false)
     {
-        $oActive = false;
-        $oBanner = oxNew(Banner::class);
-        $sBannerId = $this->getSebBannerId();
-
-        if ($blIsParent === true && $sBannerId !== null && $sBannerId !== "" && intval($this->getSebBannerHeredity()) === 1 && $oBanner->getActive($sBannerId) === true){
-            $oActive = true;
-        } elseif ($blIsParent === false && $sBannerId !== null && $sBannerId !== ""  && $oBanner->getActive($sBannerId) === true) {
-            $oActive = true;
+        if ($this->_oBanner !== false) {
+            return $this->_oBanner;
         } else {
+            $oBanner = oxNew(Banner::class);
+            $sBannerId = $this->getSebBannerId();
+
+            if ($blIsParent === true && $sBannerId !== null && $sBannerId !== "" && intval($this->getSebBannerHeredity()) === 1 && $oBanner->getActive($sBannerId) === true) {
+                $oBanner->load($sBannerId);
+                return $this->_oBanner = $oBanner;
+            } elseif ($blIsParent === false && $sBannerId !== null && $sBannerId !== "" && $oBanner->getActive($sBannerId) === true) {
+                $oBanner->load($sBannerId);
+                return $this->_oBanner = $oBanner;
+            }
+
             $oParent = $this;
             if ($oParent->load($this->getParentId()) === true) {
-                $oActive = $oParent->getPromotionActive(true);
+                return $this->_oBanner = $oParent->getActiveBanner(true);
             }
+            return false;
         }
-        return $oActive;
     }
 
     /**
@@ -107,42 +115,16 @@ class Category extends Category_Parent
      */
     public function getSebBannerUrl()
     {
-        $oBanner = oxNew(Banner::class);
-        $sBannerId = $this->getSebBannerId();
+        $oBanner = $this->getActiveBanner();
 
-        if ($sBannerId !== null && $sBannerId !== "" && $oBanner->getActive($sBannerId) === true) {
-            $oBanner->load($this->getSebBannerId());
-        } else {
-            $oBanner->load($this->getParentBannerId());
-        }
-        $sUrl = $oBanner->getPictureUrl("category/banner");
+        if ($oBanner !== false) {
+            $sUrl = $oBanner->getPictureUrl("category/banner");
 
-        if (Registry::getUtilsFile()->urlValidate($sUrl) === false) {
-            return false;
-        }
-
-        return $sUrl;
-    }
-
-    /**
-     * returns banner id of category if it passes on its banner
-     * or calls getParentBannerId() of parent category
-     *
-     * @return false|mixed
-     */
-    public function getParentBannerId()
-    {
-        $sBannerId = false;
-        $oBanner = oxNew(Banner::class);
-
-        if ($this->getSebBannerId() !== null && $this->getSebBannerId() !== "" && intval($this->getSebBannerHeredity()) === 1 && $oBanner->getActive($this->getSebBannerId()) === true) {
-            $sBannerId = $this->getSebBannerId();
-        } else {
-            $oParent = $this;
-            if ($oParent->load($this->getParentId()) === true) {
-                $sBannerId = $oParent->getParentBannerId();
+            if (Registry::getUtilsFile()->urlValidate($sUrl) === false) {
+                return false;
             }
+            return $sUrl;
         }
-        return $sBannerId;
+        return false;
     }
 }

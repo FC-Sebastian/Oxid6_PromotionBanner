@@ -43,18 +43,24 @@ class ManufacturerBannerController extends SebBaseController
         $oBanner = $this->getBanner($oManufacturer);
         $aParams = Registry::getConfig()->getRequestParameter("editval");
 
-        $oBanner->assign($aParams);
+        if ($this->isURL($aParams["oxsebbanner__oxbannerlink"]) === true) {
+            $oBanner->assign($aParams);
 
-        if ($this->checkFileUpload("MBAN@oxsebbanner__oxbannerpic") === true) {
-            $oBanner->deletePicture("manufacturer/banner");
-            $oBanner = Registry::getUtilsFile()->processFiles($oBanner);
+            if ($this->checkFileUpload("MBAN@oxsebbanner__oxbannerpic") === true) {
+                $oBanner->deletePicture("manufacturer/banner");
+                $oBanner = Registry::getUtilsFile()->processFiles($oBanner);
+            }
+            $oBanner->save();
+            $sBannerId = $oBanner->getId();
+
+            $oManufacturer->setSebBannerId($sBannerId);
+            $oManufacturer->setLanguage($this->_iEditLang);
+            $oManufacturer->save();
+        } else {
+            $this->_aViewData["bannerUrlValid"] = false;
+            $this->_aViewData["bannerUrl"] = $aParams["oxsebbanner__oxbannerlink"];
+
         }
-        $oBanner->save();
-        $sBannerId = $oBanner->getId();
-
-        $oManufacturer->setSebBannerId($sBannerId);
-        $oManufacturer->setLanguage($this->_iEditLang);
-        $oManufacturer->save();
     }
 
     /**

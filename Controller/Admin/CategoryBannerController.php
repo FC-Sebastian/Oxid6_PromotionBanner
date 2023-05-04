@@ -44,19 +44,25 @@ class CategoryBannerController extends SebBaseController
         $oBanner = $this->getBanner($oCategory);
         $aParams = $oConf->getRequestParameter("editval");
 
-        $oCategory->assign($aParams);
-        $oBanner->assign($aParams);
+        if ($this->isURL($aParams["oxsebbanner__oxbannerlink"]) === true) {
+            $oCategory->assign($aParams);
+            $oBanner->assign($aParams);
 
-        if ($this->checkFileUpload("CBAN@oxsebbanner__oxbannerpic") === true) {
-            $oBanner->deletePicture("category/banner");
-            $oBanner = Registry::getUtilsFile()->processFiles($oBanner);
+            if ($this->checkFileUpload("CBAN@oxsebbanner__oxbannerpic") === true) {
+                $oBanner->deletePicture("category/banner");
+                $oBanner = Registry::getUtilsFile()->processFiles($oBanner);
+            }
+            $oBanner->save();
+            $sBannerId = $oBanner->getId();
+
+            $oCategory->setSebBannerId($sBannerId);
+            $oCategory->setLanguage($this->_iEditLang);
+            $oCategory->save();
+        } else {
+            $this->_aViewData["bannerUrlValid"] = false;
+            $this->_aViewData["bannerUrl"] = $aParams["oxsebbanner__oxbannerlink"];
+
         }
-        $oBanner->save();
-        $sBannerId = $oBanner->getId();
-
-        $oCategory->setSebBannerId($sBannerId);
-        $oCategory->setLanguage($this->_iEditLang);
-        $oCategory->save();
     }
 
     /**

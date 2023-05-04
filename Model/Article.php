@@ -13,6 +13,8 @@ use function OxidEsales\EshopCommunity\Tests\Unit\Application\Controller\getSeoP
  */
 class Article extends Article_Parent
 {
+    protected $_oBanner = false;
+
     /**
      * returns OXSEBBANNERID of article
      *
@@ -35,33 +37,41 @@ class Article extends Article_Parent
     }
 
     /**
-     * verifies if banner is active
-     * loads banner object of article or article manufacturer
-     * then returns getActive method of banner object
+     * returns active banner object of product or manufacturer
+     * returns false if none exist
      *
-     * @return bool
+     * @return bool|Banner|mixed
      */
-    public function getPromotionActive()
+    public function getActiveBanner()
     {
+        if ($this->_oBanner !== false) {
+            return $this->_oBanner;
+        }
+
         $oBanner = oxNew(Banner::class);
         $sBannerId = $this->getSebBannerId();
 
         if ($sBannerId !== null && $sBannerId !== "" && $oBanner->getActive($sBannerId) === true) {
-            $oActive = true;
-        } else {
-            $oManu = $this->getManufacturer();
-            $oActive = $oBanner->getActive($oManu->getSebBannerId());
+            $oBanner->load($sBannerId);
+            return $this->_oBanner = $oBanner;
         }
-        return $oActive;
+
+        $oManu = $this->getManufacturer();
+        if($oBanner->getActive($oManu->getSebBannerId()) === true) {
+            $oBanner->load($sBannerId);
+            return $this->_oBanner = $oBanner;
+        }
+
+        return false;
     }
 
     /**
-     * if article has banner returns its url
-     * otherwise returns url of manufacturers banner
+     * if article has banner returns url of banner picture
+     * otherwise returns url of manufacturers banner picture
      *
      * @return string
      */
-    public function getSebBannerUrl()
+    public function getSebBannerPicUrl()
     {
         $oBanner = oxNew(Banner::class);
         $sBannerId = $this->getSebBannerId();

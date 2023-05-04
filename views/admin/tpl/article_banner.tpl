@@ -24,21 +24,21 @@
     <input type="hidden" name="oxparentid" value="[{$oxparentid}]">
     <input type="hidden" name="masterPicIndex" value="">
 
-    [{if $oViewConf->isAltImageServerConfigured()}]
-        <div class="warning">[{oxmultilang ident="ALTERNATIVE_IMAGE_SERVER_NOTE"}] [{oxinputhelp ident="HELP_ALTERNATIVE_IMAGE_SERVER_NOTE"}]</div>
+    [{if $bannerUrlValid === false}]
+    <div class="warning">"[{$bannerUrl}]", [{oxmultilang ident="SEB_BANNER_URL_INVALID"}]</div>
     [{/if}]
 
     <table cellspacing="0" cellpadding="0" width="100%" border="0" class="listTable">
         <tr>
-            <th colspan="4" valign="top">
+            <th colspan="4">
                 [{oxmultilang ident="SEB_BANNER_HEADER"}]
-                [{oxinputhelp ident="SEB_BANNER_HELP"}]
             </th>
         </tr>
 
         <tr>
             <td class="edittext">
                 [{oxmultilang ident="SEB_BANNER_UPLOAD_LABEL"}]
+                [{oxinputhelp ident="SEB_BANNER_UPLOAD_HELP"}]
             </td>
 
             <td class="text">
@@ -66,8 +66,24 @@
         </tr>
         <tr>
             <td class="edittext">
-                [{oxmultilang ident="SEB_BANNER_TIME_LABEL"}]
+                [{oxmultilang ident="SEB_BANNER_LINK"}]
+                [{oxinputhelp ident="SEB_BANNER_LINK_HELP"}]
             </td>
+            <td></td>
+            <td class="edittext">
+                <input class="editinput" name="editval[oxsebbanner__oxbannerlink]" type="text" value="[{$editBanner->oxsebbanner__oxbannerlink->value}]" style="width: 50%">
+            </td>
+            <td class="edittext">
+                [{oxmultilang ident="SEB_BANNER_NEW_TAB"}]
+                <input type="checkbox" class="editinput" name="editval[oxsebbanner__oxnewtab]" value="1" [{if $editBanner->getNewTab() === true}]checked[{/if}]>
+            </td>
+        </tr>
+        <tr>
+            <td class="edittext">
+                [{oxmultilang ident="SEB_BANNER_TIME_LABEL"}]
+                [{oxinputhelp ident="SEB_BANNER_TIME_HELP"}]
+            </td>
+            <td></td>
             <td class="edittext">
                 [{oxmultilang ident="SEB_BANNER_FROM"}]
                 <input type="text" class="editinput" size="20" maxlength="20" name="editval[oxsebbanner__oxactivefrom]" value="[{$editBanner->getFrom()|oxformdate}]">
@@ -76,7 +92,6 @@
                 [{oxmultilang ident="SEB_BANNER_TO"}]
                 <input type="text" class="editinput" size="20" maxlength="20" name="editval[oxsebbanner__oxactiveto]" value="[{$editBanner->getTo()|oxformdate}]">
             </td>
-            <td></td>
         </tr>
     </table>
     <input type="submit" class="editinput" name="save" value="[{ oxmultilang ident="SEB_BANNER_SAVE" }]" onClick="Javascript:document.myedit.fnc.value='save'" [{$readonly}]><br>

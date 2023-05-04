@@ -78,7 +78,12 @@ class Banner extends \OxidEsales\Eshop\Core\Model\MultiLanguageModel
         if ($sFile === false) {
             $sFile = $this->getOxBannerPic();
         }
-        return Registry::getConfig()->getUrl($sFile,$sDir);
+        $sUrl = Registry::getConfig()->getUrl($sFile,$sDir);
+
+        if (Registry::getUtilsFile()->urlValidate($sUrl) === false) {
+            return false;
+        }
+        return $sUrl;
     }
 
     /**
@@ -111,6 +116,18 @@ class Banner extends \OxidEsales\Eshop\Core\Model\MultiLanguageModel
         $sTo = $this->getTo();
 
         return strtotime($sFrom) <= time() && time() <= strtotime($sTo);
+    }
+
+    /**
+     * returns true if url opens in new tab false otherwise
+     *
+     * @return bool
+     */
+    public function getNewTab()
+    {
+         Registry::getLogger()->error(gettype($this->oxsebbanner__oxnewtab->value)." {$this->oxsebbanner__oxnewtab->value}");
+
+        return boolval($this->oxsebbanner__oxnewtab->value);
     }
 
     /**

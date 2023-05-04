@@ -45,18 +45,25 @@ class ArticleBannerController extends SebBaseController
         $oBanner = $this->getBanner($oArticle);
         $aParams = $oConf->getRequestParameter("editval");
 
-        $oBanner->assign($aParams);
+        if ($this->isURL($aParams["oxsebbanner__oxbannerlink"]) === true) {
 
-        if ($this->checkFileUpload("BAN@oxsebbanner__oxbannerpic") === true) {
-            $oBanner->deletePicture("product/banner");
-            $oBanner = Registry::getUtilsFile()->processFiles($oBanner);
+            $oBanner->assign($aParams);
+
+            if ($this->checkFileUpload("BAN@oxsebbanner__oxbannerpic") === true) {
+                $oBanner->deletePicture("product/banner");
+                $oBanner = Registry::getUtilsFile()->processFiles($oBanner);
+            }
+            $oBanner->save();
+            $sBannerId = $oBanner->getId();
+
+            $oArticle->setSebBannerId($sBannerId);
+            $oArticle->setLanguage($this->_iEditLang);
+            $oArticle->save();
+        } else {
+            $this->_aViewData["bannerUrlValid"] = false;
+            $this->_aViewData["bannerUrl"] = $aParams["oxsebbanner__oxbannerlink"];
+
         }
-        $oBanner->save();
-        $sBannerId = $oBanner->getId();
-
-        $oArticle->setSebBannerId($sBannerId);
-        $oArticle->setLanguage($this->_iEditLang);
-        $oArticle->save();
     }
 
     /**
